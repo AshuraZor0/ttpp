@@ -3,6 +3,8 @@ import Card from "../components/Card";
 
 const Dashboard = () => {
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -23,21 +25,25 @@ const Dashboard = () => {
         }
 
         const img_data = await response.json();
-        setData(img_data.Images);
+        setData(img_data.Images || []);
         console.log(img_data);
       } catch (error) {
         console.error("Error fetching data:", error.message);
+        setError(error.message);
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchData();
   }, []);
 
-  return (
-    <div className="  h-full bg-white   ">
-      {/* {  console.log("data id here",data)} */}
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
 
-      <div className="flex flex-wrap justify-center text-white text-sm   gap-8 m-7">
+  return (
+    <div className="h-full bg-white">
+      <div className="flex flex-wrap justify-center text-white text-sm gap-8 m-7">
         {data.map((img) => (
           <Card key={img._id} post={img} />
         ))}

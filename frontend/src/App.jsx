@@ -18,8 +18,8 @@ function App() {
 
   useEffect(() => {
     const token = Cookies.get("token");
-    console.log("All Cookies:", document.cookie);
-    console.log("Token:", token);
+    // console.log("All Cookies:helllo theer is cookies", document.cookie);
+    // console.log("Token:", token);
 
     if (token) {
       setIsLoggedIn(true);

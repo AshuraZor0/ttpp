@@ -5,7 +5,7 @@ exports.auth = (req, res, next) => {
   try {
     const token = req.cookies.token;
 
-    console.log(token);
+    //console.log(token);
     if (!token || token === undefined) {
       return res.status(401).json({
         success: false,
@@ -15,10 +15,10 @@ exports.auth = (req, res, next) => {
 
     try {
       const payload = jwt.verify(token, process.env.JWT_SECURITY);
-      console.log("Console the payload:", payload);
+      // console.log("Console the payload:", payload);
       req.User = payload;
 
-      console.log("user in req", req.User);
+     // console.log("user in req", req.User);
     } catch (er) {
       return res.status(401).json({
         success: false,
